@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --font-title: "Cormorant SC", "Cormorant Garamond", Georgia, serif;
+  --font-body: "Cormorant Garamond", Georgia, serif;
+  --font-hand: "Kurale", "Cormorant Garamond", Georgia, serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #07060d;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #e9dfc7;
+}
+
+.map-svg text {
+  user-select: none;
+  pointer-events: none;
+}
+
+.view-enter {
+  animation: viewEnter 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes viewEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.cosmo-spin {
+  animation: spin 240s linear infinite;
+  transform-origin: 500px 500px;
+}
+.cosmo-spin-rev {
+  animation: spin 360s linear infinite reverse;
+  transform-origin: 500px 500px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 3.5s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.stars {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 120px 80px, #cde, transparent),
+    radial-gradient(1.5px 1.5px at 200px 160px, #fff, transparent),
+    radial-gradient(1px 1px at 300px 40px, #ddf, transparent),
+    radial-gradient(1px 1px at 360px 220px, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 80px 260px, #fed, transparent),
+    radial-gradient(1px 1px at 250px 300px, #fff, transparent);
+  background-size: 400px 340px;
+}
+
+.paper-bg {
+  background-color: #cbb994;
+  background-image:
+    radial-gradient(ellipse at 50% 50%, rgba(255, 248, 225, 0.35), transparent 70%),
+    radial-gradient(ellipse at 0% 0%, rgba(90, 60, 25, 0.35), transparent 45%),
+    radial-gradient(ellipse at 100% 100%, rgba(90, 60, 25, 0.4), transparent 45%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.12 0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(140, 100, 50, 0.5);
+  border-radius: 3px;
+}
