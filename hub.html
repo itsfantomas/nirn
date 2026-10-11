@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Нирн: Хаб</title>
+  <link rel="stylesheet" href="https://forumstatic.ru/files/001b/b7/09/33247.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #090a0f;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<div id="nirn-hub">
+  <!-- Навигация -->
+  <div class="hub-nav">
+    <button class="hub-tab-btn active" onclick="openHubTab('map', this)">Карта Нирна</button>
+    <button class="hub-tab-btn" onclick="openHubTab('cast', this)">Игроки каста</button>
+    <button class="hub-tab-btn" onclick="openHubTab('lore', this)">Демонтаж Мундуса</button>
+  </div>
+
+  <!-- Вкладка 1: Карта -->
+  <div id="tab-map" class="hub-pane active" style="padding:0;">
+    <iframe src="./index.html" style="width:100%; height:700px; border:none; display:block;"></iframe>
+  </div>
+
+  <!-- Вкладка 2: Каст -->
+  <div id="tab-cast" class="hub-pane">
+    <div class="hub-loader">Разворачиваем списки каста...</div>
+  </div>
+
+  <!-- Вкладка 3: Сюжет -->
+  <div id="tab-lore" class="hub-pane">
+    <div class="hub-loader">Загрузка хроник Архива...</div>
+  </div>
+</div>
+
+<script>
+  const HUB_FILES = {
+    cast: 'https://forumstatic.ru/files/001b/b7/09/40825.js',
+    lore: 'https://forumstatic.ru/files/001b/b7/09/52198.js'
+  };
+
+  const loadedTabs = {};
+
+  function openHubTab(tabName, btn) {
+    document.querySelectorAll('#nirn-hub .hub-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('#nirn-hub .hub-tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById('tab-' + tabName).classList.add('active');
+    btn.classList.add('active');
+
+    // Подтягиваем скрипт вкладки с forumstatic
+    if (!loadedTabs[tabName] && HUB_FILES[tabName]) {
+      const script = document.createElement('script');
+      script.charset = 'utf-8';
+      script.src = HUB_FILES[tabName] + '?v=' + Date.now();
+      document.head.appendChild(script);
+      loadedTabs[tabName] = true;
+    }
+  }
+</script>
+
+</body>
+</html>
